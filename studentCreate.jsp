@@ -1,21 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="lecture1.Student.*" %>
+<%@ page import="lecture01.Student.*" %>
 <%
 int id=0;
 String studentNumber="";
 String name="";
-int departmentId=0;
+int departmentId;
 int year=0;
 String errorMessage=null;
+
+
 request.setCharacterEncoding("UTF-8");
+
 if(request.getMethod().equals("POST")){
-//	id = request.getParameter("id")==null?0:Integer.parseInt(request.getParameter("id"));
+
+	String strId = "";
+	String strDepart = "";
+	String strYear = "";
+	
+	if((strId = request.getParameter("id")) == ""){
+		id = 0;
+	} else{
+		id = Integer.parseInt(strId);
+	}
 	studentNumber = request.getParameter("studentNumber");
 	name = request.getParameter("name");
-//	departmentId = request.getParameter("departmentId")==null?
-//					0:Integer.parseInt(request.getParameter("departmentId"));
-//	year = request.getParameter("year")==null?0:Integer.parseInt(request.getParameter("year"));
+	if((strDepart = request.getParameter("department")) == null){
+		departmentId =1;
+	} else{
+		departmentId = Integer.parseInt(strDepart);
+	}
+	
+	if((strYear = request.getParameter("year")) == ""){
+		year = 0;
+	} else{
+		year = Integer.parseInt(strYear);
+	}
 	
 	if(id == 0)	errorMessage="ID를 입력하세요.";
 	else if(studentNumber == null || studentNumber.length() == 0)	errorMessage="학번을 입력하세요.";
@@ -23,9 +43,9 @@ if(request.getMethod().equals("POST")){
 	else if(departmentId == 0)	errorMessage="학과을 선택하세요.";
 	else if(year == 0)	errorMessage="학년을 입력하세요.";
 	else{
-//		Student student = new Student(id, studentNumber, name, departmentId, year);
-//		session.setAttribute("student",student);
-//		response.sendRedirect("studentCreate_success.jsp");
+		Student student = new Student(id, studentNumber, name, departmentId, year);
+		session.setAttribute("student",student);
+		response.sendRedirect("studentCreate_success.jsp");
 	}
 }
 %>
@@ -62,7 +82,7 @@ if(request.getMethod().equals("POST")){
 </style>
 <body>
 <div class = "container">
-	<form action="studentCreate_success.jsp" method = "post">
+	<form method = "post">
 		<h1>학생 등록</h1>
 		<div>
 			<label>ID</label>
@@ -79,10 +99,10 @@ if(request.getMethod().equals("POST")){
 		<div>
 			<label> 학과 </label>
 			<select class="department">
-				<option value="1" <%= departmentId == 1? "selected":"" %>> 소프트웨어공학과 </option>
-				<option value="2" <%= departmentId == 2? "selected":"" %>> 컴퓨터공학과 </option>
-				<option value="3" <%= departmentId == 3? "selected":"" %>> 정보통신공학과 </option>
-				<option value="4" <%= departmentId == 4? "selected":"" %>> 글로컬IT공학과 </option>
+				<option value="1" > 소프트웨어공학과 </option>
+				<option value="2" > 컴퓨터공학과 </option>
+				<option value="3" > 정보통신공학과 </option>
+				<option value="4" > 글로컬IT공학과 </option>
 			</select>
 		</div>
 		<div>

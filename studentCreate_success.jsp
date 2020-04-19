@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="lecture1.Student.*" %>
+<%@ page import="lecture01.Student.*" %>
 <%
-//Student student = (Student)session.getAttribute("student");
+Student student = (Student)session.getAttribute("student");
 %>
 <!DOCTYPE html>
 <html>
@@ -22,23 +22,23 @@
 	<table>
 		<tr>
 			<td>ID</td>
-			<td> 아이디 </td>
+			<td> <%= student.getId() %> </td>
 		</tr>
 		<tr>
 			<td>학번</td>
-			<td> 학번 </td>
+			<td> <%= student.getStudentNumber() %> </td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td> 이름 </td>
+			<td> <%= student.getName() %> </td>
 		</tr>
 		<tr>
 			<td>학과</td>
-			<td> 학과 </td>
+			<td> <%= student.getDepartmentId() %> </td>
 		</tr>
 		<tr>
 			<td>학년</td>
-			<td> 학년 </td>
+			<td> <%= student.getYear() %> </td>
 		</tr>
 	</table>
 </body>
